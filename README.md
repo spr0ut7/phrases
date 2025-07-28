@@ -1,7 +1,7 @@
 # Random Phrase Display
 
 ## Overview
-`random_phrase_display.html` is a simple web page that displays random phrases. Phrases and styles are easily modifiable within the file.
+`phrases.html` is a simple web page that displays random phrases. Phrases and styles are easily modifiable within the file.
 
 ## Usage
 1. Open `phrases.html` in a web browser.
