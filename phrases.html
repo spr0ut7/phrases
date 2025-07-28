@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Phrase Display</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // Edit these phrases to customize your display
+        const phrases = [
+            "AI's current limitations in coding complex apps stem from environmental complexities and dependency management.",
+            "Why is it challenging for AI to handle the transition from local to public or hosted environments?",
+            "Intermediate coding skills are crucial for integrating AI-generated code pieces effectively.",
+            "Inequality paradoxically driving food abundance through economies of scale.",
+            "How might free food availability impact societal structures and individual behaviors?",
+            "The timeline for widespread free food access: a 5-10 year projection.",
+            "Dexterity and empathy as the last frontiers for robotic conquest in job markets.",
+            "The psychological impact of robotic handymen on household pets and children.",
+            "Why might trades like plumbing or electrical work remain human-dominated in the near future?",
+            "The decentralization of power and its effects on housing affordability.",
+            "How might reduced government control influence local community development?",
+            "Cheaper housing through streamlined permitting processes.",
+            "The boomer generation's demographic shift and its deflationary impact on housing markets.",
+            "What happens when a large cohort like the boomers transitions out of the housing market?",
+            "Inheritance and the housing market: a flood of properties.",
+            "Predicting the preferences of Millennials and Gen Z in shaping future markets.",
+            "How will the values of younger generations redefine job roles and opportunities?",
+            "The cultural and economic influence of post-Boomer generations.",
+            "The intersection of technology, demographics, and societal structures in shaping the future.",
+            "How might advancements in AI and robotics coexist with human-centric job roles?",
+            "The role of government in a future where local actions and individual preferences dominate.",
+            "Balancing technological progress with human needs and values.",
+            "Are there scenarios where AI could overcome current limitations faster than expected?",
+            "Could increased food abundance exacerbate rather than alleviate inequality?",
+            "What if robotic advancements in dexterity and empathy occur more rapidly than predicted?",
+            "Might centralized governments find new ways to maintain or increase their power?",
+            "How could the housing market respond if the predicted supply spike doesn't materialize as expected?",
+            "What if future generations' tastes and preferences are more aligned with current trends than anticipated?",
+            "The role of human oversight in ensuring AI-generated code meets project requirements.",
+            "How might AI evolve to handle complex coding tasks more autonomously?",
+            "The potential for AI to revolutionize software development workflows.",
+            "The environmental implications of scaling food production for abundance.",
+            "How might free food access affect global food distribution and waste?",
+            "The economic models supporting free food availability in local communities.",
+            "The importance of human touch in animal husbandry and its resistance to automation.",
+            "How might trades adapt to incorporate AI and robotics without losing their human essence?",
+            "The future of apprenticeships and skill transfer in trades facing automation.",
+            "The potential for blockchain or decentralized technologies to streamline permitting processes.",
+            "How might local governance models evolve in a less centralized future?",
+            "The impact of reduced regulation on housing quality and safety.",
+            "The ripple effects of a housing supply spike on related industries like construction and real estate.",
+            "How might inheritance laws and practices adapt to a large generational wealth transfer?",
+            "The social implications of a significant demographic shift in property ownership.",
+            "The role of sustainability and environmental consciousness in shaping future consumer preferences.",
+            "How might education and skill development evolve to meet the needs of future job markets?",
+            "The potential for intergenerational collaboration in addressing global challenges.",
+            "What does it mean to be human in an increasingly automated world?",
+            "How can we ensure that technological progress benefits all of humanity?",
+            "The balance between individual freedom and collective responsibility in a decentralized future.",
+            "What if AI development plateaus, and we don't see the expected advancements in the next decade?",
+            "Could a global crisis accelerate or decelerate the trends predicted in the document?",
+            "How might cultural differences influence the adoption and impact of these trends worldwide?",
+            "The influence of digital natives on technology adoption and innovation.",
+            "How might Gen Z's values around diversity and inclusion shape workplace dynamics?",
+            "The potential for younger generations to prioritize experiences over material possessions.",
+            "The ethical considerations of AI-generated code in critical systems like healthcare or transportation.",
+            "How might AI-assisted coding change the landscape of software patents and intellectual property?",
+            "The potential for AI to democratize software development by lowering barriers to entry.",
+            "The role of vertical farming and lab-grown meat in achieving food abundance.",
+            "How might free food access impact traditional agricultural communities and economies?",
+            "The potential for food abundance to reduce global conflicts over resources.",
+            "The importance of soft skills like communication and emotional intelligence in future job markets.",
+            "How might the trades evolve to incorporate sustainable practices and materials?",
+            "The potential for human-animal bonds to remain a uniquely human domain in animal husbandry.",
+            "The role of community land trusts in providing affordable housing in a decentralized future.",
+            "How might reduced government oversight affect environmental regulations and urban planning?",
+            "The potential for grassroots movements to drive housing policy changes.",
+            "The impact of an aging population on healthcare systems and social services.",
+            "How might the transfer of boomer wealth influence investment trends and economic growth?",
+            "The potential for a 'silver economy' focused on products and services for older adults.",
+            "The role of virtual and augmented reality in shaping future entertainment and social interactions.",
+            "How might younger generations' attitudes towards work-life balance influence corporate cultures?",
+            "The potential for future generations to prioritize mental health and well-being in their lifestyle choices.",
+            "The potential for AI and robotics to fill labor gaps left by an aging workforce.",
+            "How might advancements in healthcare technology extend the working lives of older adults?",
+            "The role of AI in managing the complexities of inheritance and wealth transfer.",
+            "The demand for artisanal or handcrafted goods in a world of mass production.",
+            "How might younger generations value human interaction in service industries?",
+            "The potential for trades to become prestige professions due to their human-centric nature.",
+            "The challenge of ensuring equitable distribution of abundant food resources.",
+            "How might free food access affect the concept of work and productivity?",
+            "The potential for food abundance to shift societal focus towards other forms of scarcity, like time or attention.",
+            "The impact of a major technological breakthrough, like quantum computing, on AI development.",
+            "How might a global pandemic or natural disaster alter the trajectory of food production and distribution?",
+            "The potential for a cultural backlash against automation and a renewed emphasis on human labor.",
+            "The importance of lifelong learning in adapting to rapidly changing job markets.",
+            "How might educational institutions evolve to teach skills that complement AI and robotics?",
+            "The potential for apprenticeship models to regain popularity in the face of automation.",
+            "Is it possible that AI could master dexterity and empathy faster than expected, upending predictions about resilient fields?",
+            "What if centralized governments leverage technology to increase their power rather than lose it?",
+            "How might the housing market react if millennials and Gen Z have different housing preferences than predicted?",
+            "Could technological limitations or resource constraints delay the timeline for widespread free food access?",
+            "What if consumer preferences shift away from mass-produced food towards local or organic options?",
+            "A future where AI and humans collaborate seamlessly, each leveraging their unique strengths.",
+            "How might abundant food and affordable housing lead to a renaissance in arts and culture?",
+            "The potential for decentralized governance to foster innovation and community engagement.",
+            "The risks of overreliance on AI leading to a loss of human skills and knowledge.",
+            "How might extreme inequality persist or worsen despite technological abundance?",
+            "The potential for decentralized systems to lack accountability and oversight."
+        ];
+
+        // Web fonts to cycle through
+        const fonts = [
+            'Georgia, serif',
+            'Helvetica, Arial, sans-serif',
+            'Times New Roman, serif',
+            'Courier New, monospace'
+        ];
+
+        // Color palettes for background and text combinations
+        const colorPalettes = [
+            { bg: [15, 15, 35], text: [255, 255, 255] },      // Dark blue bg, white text
+            { bg: [35, 15, 15], text: [255, 220, 200] },      // Dark red bg, cream text
+            { bg: [15, 35, 15], text: [200, 255, 200] },      // Dark green bg, light green text
+            { bg: [45, 25, 55], text: [255, 200, 255] },      // Purple bg, pink text
+            { bg: [25, 25, 25], text: [255, 255, 255] },      // Charcoal bg, white text
+            { bg: [55, 35, 15], text: [255, 240, 200] },      // Brown bg, cream text
+            { bg: [15, 35, 55], text: [200, 230, 255] },      // Navy bg, light blue text
+            { bg: [55, 15, 35], text: [255, 200, 230] }       // Maroon bg, pink text
+        ];
+
+        let currentPhrase = "";
+        let currentFont = "";
+        let currentPalette;
+        let alpha = 0;
+        let phase = "fadeIn"; // "fadeIn", "display", "fadeOut", "pause"
+        let phaseTimer = 0;
+        let phraseIndex = 0;
+
+        // Timing constants (in frames, assuming 60fps)
+        const FADE_IN_TIME = 90;    // 1.5 seconds
+        const DISPLAY_TIME = 180;   // 3 seconds
+        const FADE_OUT_TIME = 90;   // 1.5 seconds
+        const PAUSE_TIME = 60;      // 1 second
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight);
+            textAlign(CENTER, CENTER);
+            selectNewPhrase();
+        }
+
+        function draw() {
+            // Set background color
+            background(currentPalette.bg[0], currentPalette.bg[1], currentPalette.bg[2]);
+            
+            // Handle phase transitions and alpha changes
+            handlePhaseLogic();
+            
+            // Draw the text with current alpha
+            fill(currentPalette.text[0], currentPalette.text[1], currentPalette.text[2], alpha);
+            
+            // Set font and size
+            textFont(currentFont);
+            textSize(calculateTextSize());
+            
+            // Draw the phrase with text wrapping
+            drawWrappedText(currentPhrase, width / 2, height / 2, width * 0.85);
+            
+            phaseTimer++;
+        }
+
+        function handlePhaseLogic() {
+            switch(phase) {
+                case "fadeIn":
+                    alpha = map(phaseTimer, 0, FADE_IN_TIME, 0, 255);
+                    if (phaseTimer >= FADE_IN_TIME) {
+                        phase = "display";
+                        phaseTimer = 0;
+                        alpha = 255;
+                    }
+                    break;
+                    
+                case "display":
+                    alpha = 255;
+                    if (phaseTimer >= DISPLAY_TIME) {
+                        phase = "fadeOut";
+                        phaseTimer = 0;
+                    }
+                    break;
+                    
+                case "fadeOut":
+                    alpha = map(phaseTimer, 0, FADE_OUT_TIME, 255, 0);
+                    if (phaseTimer >= FADE_OUT_TIME) {
+                        phase = "pause";
+                        phaseTimer = 0;
+                        alpha = 0;
+                    }
+                    break;
+                    
+                case "pause":
+                    alpha = 0;
+                    if (phaseTimer >= PAUSE_TIME) {
+                        selectNewPhrase();
+                        phase = "fadeIn";
+                        phaseTimer = 0;
+                    }
+                    break;
+            }
+        }
+
+        function selectNewPhrase() {
+            // Select a different phrase than the current one
+            let newIndex;
+            do {
+                newIndex = Math.floor(Math.random() * phrases.length);
+            } while (newIndex === phraseIndex && phrases.length > 1);
+            
+            phraseIndex = newIndex;
+            currentPhrase = phrases[phraseIndex];
+            
+            // Select random font
+            currentFont = fonts[Math.floor(Math.random() * fonts.length)];
+            
+            // Select random color palette
+            currentPalette = colorPalettes[Math.floor(Math.random() * colorPalettes.length)];
+        }
+
+        function calculateTextSize() {
+            // Start with a base size and adjust until text fits
+            let testSize = min(width, height) / 8;
+            let maxWidth = width * 0.85; // Use 85% of screen width
+            let maxHeight = height * 0.8; // Use 80% of screen height
+            
+            // Test progressively smaller sizes until text fits
+            while (testSize > 16) {
+                textSize(testSize);
+                textFont(currentFont);
+                
+                // Calculate text dimensions with wrapping
+                let words = currentPhrase.split(' ');
+                let lines = [];
+                let currentLine = '';
+                
+                for (let word of words) {
+                    let testLine = currentLine + (currentLine ? ' ' : '') + word;
+                    if (textWidth(testLine) <= maxWidth) {
+                        currentLine = testLine;
+                    } else {
+                        if (currentLine) lines.push(currentLine);
+                        currentLine = word;
+                    }
+                }
+                if (currentLine) lines.push(currentLine);
+                
+                let totalHeight = lines.length * testSize * 1.2; // Line height factor
+                
+                if (totalHeight <= maxHeight) {
+                    return testSize;
+                }
+                
+                testSize -= 2;
+            }
+            
+            return 16; // Minimum size
+        }
+        
+        function drawWrappedText(txt, x, y, maxWidth) {
+            let words = txt.split(' ');
+            let lines = [];
+            let currentLine = '';
+            
+            // Create lines that fit within maxWidth
+            for (let word of words) {
+                let testLine = currentLine + (currentLine ? ' ' : '') + word;
+                if (textWidth(testLine) <= maxWidth) {
+                    currentLine = testLine;
+                } else {
+                    if (currentLine) lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+            if (currentLine) lines.push(currentLine);
+            
+            // Calculate starting y position to center the text block
+            let lineHeight = textSize() * 1.2;
+            let totalHeight = lines.length * lineHeight;
+            let startY = y - (totalHeight / 2) + (lineHeight / 2);
+            
+            // Draw each line
+            for (let i = 0; i < lines.length; i++) {
+                text(lines[i], x, startY + (i * lineHeight));
+            }
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+
+        // Click to advance to next phrase immediately
+        function mousePressed() {
+            selectNewPhrase();
+            phase = "fadeIn";
+            phaseTimer = 0;
+        }
+
+        // Spacebar to pause/resume
+        function keyPressed() {
+            if (key === ' ') {
+                if (phase === "pause") {
+                    selectNewPhrase();
+                    phase = "fadeIn";
+                    phaseTimer = 0;
+                } else {
+                    phase = "pause";
+                    phaseTimer = 0;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
